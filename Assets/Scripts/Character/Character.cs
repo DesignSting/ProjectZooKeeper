@@ -6,21 +6,33 @@ public class Character : MonoBehaviour
 {
     public CurrentOutfit CurrentOutfit;
 
-    private CharacterMovement thisCharacter;
-    [SerializeField] private Building currentTarget;
+    private CharacterAI thisCharacter;
+    [SerializeField] private Building currentBuildingTarget;
+
+    public void DestinationReached()
+    {
+        if(currentBuildingTarget != null)
+        {
+            if(currentBuildingTarget.CheckIfCorrectOutfit(this))
+            {
+                currentBuildingTarget.StartSession(this);
+            }
+        }
+    }
 
     private void CheckClick(RaycastHit hit)
     {
         if (hit.transform.tag == "Building")
         {
             Debug.Log("Building");
-            currentTarget = hit.transform.GetComponent<Building>();
-            thisCharacter.Move(currentTarget);
+            currentBuildingTarget = hit.transform.GetComponent<Building>();
+            thisCharacter.MoveCharacter(currentBuildingTarget);
         }
         else
         {
-            thisCharacter.Move(hit.point);
-            currentTarget = null;
+            Debug.Log("Not Building");
+            thisCharacter.MoveCharacter(hit.point);
+            currentBuildingTarget = null;
         }
     }
 
@@ -31,32 +43,22 @@ public class Character : MonoBehaviour
 
     public Building ReturnCurrentTarget()
     {
-        return currentTarget;
+        return currentBuildingTarget;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        thisCharacter = GetComponent<CharacterMovement>();
+        thisCharacter = GetComponent<CharacterAI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.touchCount == 1)
-        {
-            if(Input.GetTouch(1).phase == TouchPhase.Ended)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(1).position);
-                Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
-                CheckClick(hit);
-            }
-        }
-
         if(Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity);
+            Physics.Raycast(ray, out RaycastHit hit, 100);
             CheckClick(hit);
         }
     }
@@ -64,6 +66,7 @@ public class Character : MonoBehaviour
 
 public enum CurrentOutfit
 {
+    Casual,
     Janitor,
     ZooKeeper
 }
