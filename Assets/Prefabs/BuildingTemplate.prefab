@@ -259,7 +259,7 @@ MonoBehaviour:
   - {fileID: 6686960317658054640}
   - {fileID: 8212628684874006349}
   - {fileID: 449273990105406970}
-  outfitsNeeded: 
+  buildingDetails: {fileID: 11400000, guid: 13b6d55db624aaa49abdc2ac89134bde, type: 2}
 --- !u!1 &4800071068534269886
 GameObject:
   m_ObjectHideFlags: 0

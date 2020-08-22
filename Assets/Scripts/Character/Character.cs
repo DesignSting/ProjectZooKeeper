@@ -76,11 +76,8 @@ public class Character : MonoBehaviour
         {
             meshRenderers[i].material = toChange[i];
         }
-    }
 
-    public void DoActionRequired()
-    {
-        
+        CurrentOutfit = outfit;
     }
 
     public CurrentOutfit ReturnCurrentOutfit()
@@ -93,17 +90,30 @@ public class Character : MonoBehaviour
         return currentBuildingTarget;
     }
 
+    public float ReturnOutfitLevel(CurrentOutfit type)
+    {
+        float toReturn = 0;
+        switch (type)
+        {
+            case CurrentOutfit.Janitor:
+                toReturn = janitorLevel;
+                break;
+            case CurrentOutfit.ZooKeeper:
+                toReturn = zooKeeperLevel;
+                break;
+        }
+        return toReturn;
+    }
+
     private void Awake()
     {
         thisCharacter = GetComponent<CharacterAI>();
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        janitorLevel = 1;
+        zooKeeperLevel = 1;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
 
 public enum CurrentOutfit
