@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExhibitBuilding : Building
+public class ExhibitBuilding : VisitorBuilding
 {
-    public List<Transform> viewingAccessPoints = new List<Transform>();
 
     
-    
+
 }

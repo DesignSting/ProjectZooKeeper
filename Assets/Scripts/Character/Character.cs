@@ -6,26 +6,46 @@ public class Character : MonoBehaviour
 {
     public CurrentOutfit CurrentOutfit;
 
+    [Header("Stats")]
+    public int janitorLevel;
+    public int zooKeeperLevel;
+
     private CharacterAI thisCharacter;
     [SerializeField] private Building currentBuildingTarget;
+
+    private MeshRenderer[] meshRenderers;
+    private AreaMaterials currentAreaMaterials;
+
+    public void AcceptMaterials(AreaMaterials areaMaterials)
+    {
+        currentAreaMaterials = areaMaterials;
+        ChangeCurrentOutfit(CurrentOutfit.Casual);
+    }
 
     public void DestinationReached()
     {
         if(currentBuildingTarget != null)
         {
-            if(currentBuildingTarget.CheckIfCorrectOutfit(this))
+            if (currentBuildingTarget is VisitorBuilding)
             {
-                currentBuildingTarget.StartSession(this);
+                if (currentBuildingTarget.GetComponent<VisitorBuilding>().CheckIfCorrectOutfit(this))
+                {
+                    currentBuildingTarget.StartEmployeeSession(this);
+                }
+            }
+            else if (currentBuildingTarget is ToolShed)
+            {
+                currentBuildingTarget.StartEmployeeSession(this);
             }
         }
     }
 
-    private void CheckClick(RaycastHit hit)
+    public void CheckClick(RaycastHit hit)
     {
         if (hit.transform.tag == "Building")
         {
             Debug.Log("Building");
-            currentBuildingTarget = hit.transform.GetComponent<Building>();
+            currentBuildingTarget = hit.transform.GetComponentInParent<Building>();
             thisCharacter.MoveCharacter(currentBuildingTarget);
         }
         else
@@ -34,6 +54,33 @@ public class Character : MonoBehaviour
             thisCharacter.MoveCharacter(hit.point);
             currentBuildingTarget = null;
         }
+    }
+
+    public void ChangeCurrentOutfit(CurrentOutfit outfit)
+    {
+        List<Material> toChange = new List<Material>();
+        switch (outfit)
+        {
+            case CurrentOutfit.Casual:
+                toChange = currentAreaMaterials.casualOutfit;
+                break;
+            case CurrentOutfit.Janitor:
+                toChange = currentAreaMaterials.janitorOutfit;
+                break;
+            case CurrentOutfit.ZooKeeper:
+                toChange = currentAreaMaterials.zooKeeperOutfit;
+                break;
+        }
+
+        for(int i = 0; i < toChange.Count; i++)
+        {
+            meshRenderers[i].material = toChange[i];
+        }
+    }
+
+    public void DoActionRequired()
+    {
+        
     }
 
     public CurrentOutfit ReturnCurrentOutfit()
@@ -46,26 +93,22 @@ public class Character : MonoBehaviour
         return currentBuildingTarget;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         thisCharacter = GetComponent<CharacterAI>();
+        meshRenderers = GetComponentsInChildren<MeshRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonUp(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out RaycastHit hit, 100);
-            CheckClick(hit);
-        }
+        
     }
 }
 
 public enum CurrentOutfit
 {
+    None,
     Casual,
     Janitor,
     ZooKeeper

@@ -5,9 +5,11 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
     public List<Building> exhibitBuildingList = new List<Building>();
+    public List<Building> bathroomList = new List<Building>();
 
     public List<Building> toolShedList = new List<Building>();
 
+    private AreaMaterials currentAreaMaterials;
 
     public void AcceptNewBuilding(Building b)
     {
@@ -15,18 +17,25 @@ public class BuildingManager : MonoBehaviour
             toolShedList.Add(b);
         else if (b is ExhibitBuilding)
             exhibitBuildingList.Add(b);
+        else if (b is BathroomBuilding)
+            bathroomList.Add(b);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void PaintBuildings(AreaMaterials areaMaterials)
     {
+        currentAreaMaterials = areaMaterials;
+        PaintBuildings(exhibitBuildingList);
+        PaintBuildings(bathroomList);
+        PaintBuildings(toolShedList);
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void PaintBuildings(List<Building> buildings)
     {
-        
+        foreach(Building b in buildings)
+        {
+            b.PaintBuilding(currentAreaMaterials);
+        }
     }
 
     public static BuildingManager Instance;

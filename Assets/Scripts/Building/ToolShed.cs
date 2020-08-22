@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class ToolShed : Building
 {
+    public override void StartEmployeeSession(Character c)
+    {
+        DisplayToolSwap();
+    }
 
-
+    private void DisplayToolSwap()
+    {
+        UIManager.Instance.DisplayToolSwap();
+        Debug.Log("DisplayToolSwap");
+    }
 }

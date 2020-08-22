@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fd076f5ab79324d84709983ac1b7fa, type: 3}
+  m_Name: Zoo_AreaMaterials
+  m_EditorClassIdentifier: 
+  casualOutfit:
+  - {fileID: 2100000, guid: e06e598fbe804e241aeb1c4d6a97c028, type: 2}
+  janitorOutfit:
+  - {fileID: 2100000, guid: 556b8a727899b294f9188ae662479486, type: 2}
+  zooKeeperOutfit:
+  - {fileID: 2100000, guid: 03b5cf82cc84be64380b59aaebd934f7, type: 2}
+  toolshedMaterials:
+  - {fileID: 2100000, guid: 648d1e84f13105041a694c06d617f91c, type: 2}
+  bathroomMaterials:
+  - {fileID: 2100000, guid: 648d1e84f13105041a694c06d617f91c, type: 2}
+  smlExhibitMaterials:
+  - {fileID: 2100000, guid: 648d1e84f13105041a694c06d617f91c, type: 2}
+  medExhibitMaterials:
+  - {fileID: 2100000, guid: 648d1e84f13105041a694c06d617f91c, type: 2}
+  lrgExhibitMaterials:
+  - {fileID: 2100000, guid: 648d1e84f13105041a694c06d617f91c, type: 2}

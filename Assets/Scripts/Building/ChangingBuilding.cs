@@ -7,15 +7,15 @@ public class ChangingBuilding : Building
 
 
 
-    public override void StartSession(Character c)
-    {
-        if (c.CurrentOutfit == currentOutfitNeeded)
-        {
-            currentCharacter = c;
-            c.gameObject.SetActive(false);
-            currentlyInside = true;
-        }
-    }
+    //public override void StartEmployeeSession(Character c)
+    //{
+    //    if (c.CurrentOutfit == currentOutfitNeeded)
+    //    {
+    //        currentCharacter = c;
+    //        c.gameObject.SetActive(false);
+    //        playerCurrentlyInside = true;
+    //    }
+    //}
 
     private IEnumerator StartCountdown(Character c)
     {
@@ -31,19 +31,19 @@ public class ChangingBuilding : Building
             yield return null;
         }
         timer = 0;
-        currentlyInside = true;
+        playerCurrentlyInside = true;
         yield return null;
     }
 
     private void Update()
     {
-        if (currentlyInside)
+        if (playerCurrentlyInside)
         {
             timer += Time.deltaTime;
             if (timer > 2)
             {
                 Debug.Log("It is done");
-                currentlyInside = false;
+                playerCurrentlyInside = false;
                 currentCharacter.gameObject.SetActive(true);
             }
         }

@@ -23,7 +23,6 @@ namespace Movement
 
         public static bool Move(NavMeshAgent thisAgent, List<Transform> transformList, out NavMeshPath path, out Vector3 theTarget)
         {
-            Debug.Log("Character Move");
             float closest = 0;
             int target = 0;
             bool isPath = false;

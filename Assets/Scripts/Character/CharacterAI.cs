@@ -31,6 +31,10 @@ public class CharacterAI : MonoBehaviour
             thisAgent.path = path;
             isMoving = true;
         }
+        else
+        {
+            thisCharacter.DestinationReached();
+        }
     }
 
     // Start is called before the first frame update
