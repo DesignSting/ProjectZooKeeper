@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3701e476632ac04468516f94047c5c44, type: 3}
-  m_Name: SmlExhibitBuilding
+  m_Script: {fileID: 11500000, guid: 2bb806f08cdedba41afebeeb9dffc42c, type: 3}
+  m_Name: Level_02
   m_EditorClassIdentifier: 
-  outfitsNeeded:
-  - outfitNeeded: 2
-    timeForOutfit: 2
-    countdownTime: 6
-  - outfitNeeded: 3
-    timeForOutfit: 3
-    countdownTime: 10
+  specificOutfit: 0
+  timeBetween: 3
+  amountToNextLevel: 10

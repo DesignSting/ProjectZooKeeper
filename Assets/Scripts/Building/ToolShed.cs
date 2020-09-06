@@ -12,6 +12,5 @@ public class ToolShed : Building
     private void DisplayToolSwap()
     {
         UIManager.Instance.DisplayToolSwap();
-        Debug.Log("DisplayToolSwap");
     }
 }

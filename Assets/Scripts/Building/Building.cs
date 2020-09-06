@@ -57,16 +57,11 @@ public abstract class Building : MonoBehaviour
 
     private void Awake()
     {
-        BuildingManager.Instance.AcceptNewBuilding(this);
+        //BuildingManager.Instance.AcceptNewBuilding(this);
         meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        gameObject.SetActive(false);
     }
+
 }
 
-public enum BuildingType
-{
-    ToolShed,
-    Bathroom,
-    SmallExhibition,
-    MediumExhibition,
-    LargeExhibition
-}
+

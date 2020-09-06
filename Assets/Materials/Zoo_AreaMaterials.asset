@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fd076f5ab79324d84709983ac1b7fa, type: 3}
   m_Name: Zoo_AreaMaterials
   m_EditorClassIdentifier: 
+  levelType: 1
   casualOutfit:
   - {fileID: 2100000, guid: e06e598fbe804e241aeb1c4d6a97c028, type: 2}
   janitorOutfit:

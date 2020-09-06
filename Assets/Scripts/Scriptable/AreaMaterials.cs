@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Area", menuName = "Game Options/Area Materials")]
 public class AreaMaterials : ScriptableObject
 {
+    public LevelType levelType;
+
     [Header("Player Outfits")]
     public List<Material> casualOutfit;
     public List<Material> janitorOutfit;
@@ -17,18 +19,18 @@ public class AreaMaterials : ScriptableObject
     public List<Material> medExhibitMaterials;
     public List<Material> lrgExhibitMaterials;
 
-    public List<Material> ReturnPlayerMaterial(CurrentOutfit outfit)
+    public List<Material> ReturnPlayerMaterial(OutfitList outfit)
     {
         List<Material> mat = null;
         switch (outfit)
         {
-            case CurrentOutfit.Casual:
+            case OutfitList.Casual:
                 mat = casualOutfit;
                 break;
-            case CurrentOutfit.Janitor:
+            case OutfitList.Janitor:
                 mat = janitorOutfit;
                 break;
-            case CurrentOutfit.ZooKeeper:
+            case OutfitList.ZooKeeper:
                 mat = zooKeeperOutfit;
                 break;
         }

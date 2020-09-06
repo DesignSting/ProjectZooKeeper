@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class OutfitsNeededDetails
 {
-    public CurrentOutfit outfitNeeded;
+    public OutfitList outfitNeeded;
     [Range(1, 5)]
     public float timeForOutfit;
 

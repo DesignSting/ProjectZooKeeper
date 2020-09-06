@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public CurrentOutfit CurrentOutfit;
+    public OutfitList CurrentOutfit;
 
     [Header("Stats")]
     public int janitorLevel;
@@ -19,17 +19,20 @@ public class Character : MonoBehaviour
     public void AcceptMaterials(AreaMaterials areaMaterials)
     {
         currentAreaMaterials = areaMaterials;
-        ChangeCurrentOutfit(CurrentOutfit.Casual);
+        ChangeCurrentOutfit(OutfitList.Casual);
     }
 
     public void DestinationReached()
     {
+        Debug.Log("Destination Win");
         if(currentBuildingTarget != null)
         {
             if (currentBuildingTarget is VisitorBuilding)
             {
+                Debug.Log("Visitor");
                 if (currentBuildingTarget.GetComponent<VisitorBuilding>().CheckIfCorrectOutfit(this))
                 {
+                    Debug.Log("Correct Outfit");
                     currentBuildingTarget.StartEmployeeSession(this);
                 }
             }
@@ -56,18 +59,18 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void ChangeCurrentOutfit(CurrentOutfit outfit)
+    public void ChangeCurrentOutfit(OutfitList outfit)
     {
         List<Material> toChange = new List<Material>();
         switch (outfit)
         {
-            case CurrentOutfit.Casual:
+            case OutfitList.Casual:
                 toChange = currentAreaMaterials.casualOutfit;
                 break;
-            case CurrentOutfit.Janitor:
+            case OutfitList.Janitor:
                 toChange = currentAreaMaterials.janitorOutfit;
                 break;
-            case CurrentOutfit.ZooKeeper:
+            case OutfitList.ZooKeeper:
                 toChange = currentAreaMaterials.zooKeeperOutfit;
                 break;
         }
@@ -80,7 +83,7 @@ public class Character : MonoBehaviour
         CurrentOutfit = outfit;
     }
 
-    public CurrentOutfit ReturnCurrentOutfit()
+    public OutfitList ReturnCurrentOutfit()
     {
         return CurrentOutfit;
     }
@@ -90,15 +93,15 @@ public class Character : MonoBehaviour
         return currentBuildingTarget;
     }
 
-    public float ReturnOutfitLevel(CurrentOutfit type)
+    public float ReturnOutfitLevel(OutfitList type)
     {
         float toReturn = 0;
         switch (type)
         {
-            case CurrentOutfit.Janitor:
+            case OutfitList.Janitor:
                 toReturn = janitorLevel;
                 break;
-            case CurrentOutfit.ZooKeeper:
+            case OutfitList.ZooKeeper:
                 toReturn = zooKeeperLevel;
                 break;
         }
@@ -116,10 +119,4 @@ public class Character : MonoBehaviour
 
 }
 
-public enum CurrentOutfit
-{
-    None,
-    Casual,
-    Janitor,
-    ZooKeeper
-}
+

@@ -9,18 +9,18 @@ public class CharacterMaterialManager : ScriptableObject
     public Material janitorOutfit;
     public Material zooKeeperOutfit;
 
-    public Material ReturnSpecificMaterial(CurrentOutfit outfit)
+    public Material ReturnSpecificMaterial(OutfitList outfit)
     {
         Material mat = null;
         switch (outfit)
         {
-            case CurrentOutfit.Casual:
+            case OutfitList.Casual:
                 mat = casualOutfit;
                 break;
-            case CurrentOutfit.Janitor:
+            case OutfitList.Janitor:
                 mat = janitorOutfit;
                 break;
-            case CurrentOutfit.ZooKeeper:
+            case OutfitList.ZooKeeper:
                 mat = zooKeeperOutfit;
                 break;
         }

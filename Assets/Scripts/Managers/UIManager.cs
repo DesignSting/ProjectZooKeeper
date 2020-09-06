@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     public void DisplayToolSwap()
     {
-        overviewCanvas.DisplayToolSwap();
+        overviewCanvas.DisplayToolSwap(GameManager.Instance.ReturnOutfitsUnlockedList());
         GameManager.Instance.MenuOpen();
     }
 

@@ -5,10 +5,11 @@ using UnityEngine;
 public abstract class VisitorBuilding : Building
 {
     [Header("Visitor Building")]
-    public CurrentOutfit currentOutfitNeeded;
+    public OutfitList currentOutfitNeeded;
 
     public List<Transform> viewingAccessPoints = new List<Transform>();
     public BuildingDetails buildingDetails;
+    public GameObject buildingActivated;
 
     private Vector3 positionOfCountdown;
     private bool countdownActive;
@@ -27,11 +28,16 @@ public abstract class VisitorBuilding : Building
         return false;
     }
 
-    
+    public void StartOutfitCountdown(OutfitList outfitNeeded)
+    {
+        currentOutfitNeeded = outfitNeeded;
+        buildingActivated.SetActive(true);
+    }
 
     public override void StartEmployeeSession(Character c)
     {
-        currentOutfitDetails = buildingDetails.outfitsNeeded.Find(x => x.outfitNeeded == c.CurrentOutfit);
+        currentOutfitDetails = buildingDetails.ReturnOutfitDetails(c.CurrentOutfit);
+        
         StartCoroutine(EmployeeSession(c));
     }
 
@@ -43,6 +49,8 @@ public abstract class VisitorBuilding : Building
 
     private IEnumerator EmployeeSession(Character c)
     {
+        countdownActive = true;
+        GameManager.Instance.CharacterUnavailable();
         float i = c.ReturnOutfitLevel(currentOutfitNeeded);
         c.gameObject.SetActive(false);
         float timer = 0;
@@ -51,7 +59,10 @@ public abstract class VisitorBuilding : Building
             timer += Time.deltaTime * i;
             yield return null;
         }
+        countdownActive = false;
         c.gameObject.SetActive(true);
+        buildingActivated.SetActive(false);
+        GameManager.Instance.CharacterAvailable();
     }
 
     private IEnumerator Countdown()
@@ -59,8 +70,11 @@ public abstract class VisitorBuilding : Building
         float timer = 0;
         while(timer < currentOutfitDetails.countdownTime)
         {
-            timer += Time.deltaTime;
-            yield return null;
+            if (!countdownActive)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
         }
     }
 }
